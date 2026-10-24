@@ -7,12 +7,12 @@
 <meta name="description" content="Contame sobre tu marca: este brief me ayuda a diseñar una identidad a tu medida.">
 <style>
   :root {
-    /* colores (referencia: e-ink verde salvia, monocromo) */
-    --bg: #e4e9df;
+    /* colores (referencia: monocromo, fondo blanco) */
+    --bg: #ffffff;
     --ink: #1d201e;
     --muted: #596058;
     --danger: #b3261e;
-    --on-ink: #e4e9df;
+    --on-ink: #ffffff;
     /* tipografía */
     --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
     --t-xs: 12px; --t-sm: 14px; --t-md: 16px; --t-lg: 20px; --t-xl: 28px;
@@ -47,14 +47,29 @@
   .progress-num { font-size: var(--t-xl); letter-spacing: -.02em; min-width: 3.4ch; font-variant-numeric: tabular-nums; }
   .progress-body { flex: 1; min-width: 0; }
   .progress-bar { height: 2px; background: color-mix(in srgb, var(--ink) 25%, transparent); }
-  .progress-bar > i { display: block; height: 100%; width: 0; background: var(--ink); transition: width .3s; }
+  .progress-bar > i { display: block; position: relative; height: 100%; width: 0; background: var(--ink); transition: width .3s; }
+  .progress-bar > i::after { content: ""; position: absolute; right: -3px; top: -2px; width: 6px; height: 6px; border-radius: 50%; background: #e5322d; }
   .progress small { display: block; margin-top: var(--s1); color: var(--muted); font-size: var(--t-xs); text-transform: uppercase; letter-spacing: .04em; }
 
   /* secciones: tarjetas con contorno fino */
-  fieldset.section { border: var(--border); border-radius: var(--r-md); padding: var(--s5) var(--s5) var(--s2); margin: var(--s4) 0; min-width: 0; }
+  fieldset.section { max-width: 100%; border: var(--border); border-radius: var(--r-md); padding: var(--s5) var(--s5) var(--s2); margin: var(--s4) 0; min-width: 0; }
   fieldset.section > legend { padding: 0; float: left; width: 100%; margin-bottom: var(--s5); }
   fieldset.section > legend + * { clear: both; }
-  .section-num { font-size: var(--t-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  /* cada sección tiene su tono: tinte suave de fondo + círculo en el número */
+  fieldset.section { --tone: #d9c9a8; background: color-mix(in srgb, var(--tone) 16%, var(--bg)); }
+  fieldset.section:nth-of-type(1) { --tone: #d9c9a8; } /* arena */
+  fieldset.section:nth-of-type(2) { --tone: #b9b4f5; } /* lavanda */
+  fieldset.section:nth-of-type(3) { --tone: #9db8a2; } /* salvia */
+  fieldset.section:nth-of-type(4) { --tone: #f3a6e8; } /* rosa */
+  fieldset.section:nth-of-type(5) { --tone: #a9c8e8; } /* cielo */
+  fieldset.section:nth-of-type(6) { --tone: #f2c2a2; } /* durazno */
+  fieldset.section:nth-of-type(7) { --tone: #e6e2a0; } /* limón */
+  fieldset.section:nth-of-type(8) { --tone: #b8c3cc; } /* gris azulado */
+  .section-num {
+    display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--tone); color: #1d201e; font-size: var(--t-xs); font-weight: 700; letter-spacing: .02em;
+  }
+  .sec-title { margin-top: var(--s3); }
   .sec-title { font: 400 var(--t-xl)/1.15 var(--font); letter-spacing: -.02em; margin: var(--s1) 0; display: block; }
   .sec-hint { color: var(--muted); font-size: var(--t-sm); display: block; }
 
@@ -64,9 +79,20 @@
   .help { display: block; color: var(--muted); font-size: var(--t-xs); text-transform: none; letter-spacing: 0; margin-top: var(--s1); }
 
   input[type=text], input[type=email], input[type=tel], input[type=url], input[type=date], select, textarea {
-    width: 100%; font: inherit; color: var(--ink); background: transparent;
+    display: block; width: 100%; min-width: 0; max-width: 100%; min-height: 48px;
+    -webkit-appearance: none; appearance: none;
+    font: inherit; color: var(--ink); background: var(--bg);
     border: var(--border); border-radius: var(--r-sm); padding: var(--s3) var(--s4);
   }
+  select {
+    padding-right: var(--s7);
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+    background-position: calc(100% - 22px) 50%, calc(100% - 16px) 50%;
+    background-size: 6px 6px; background-repeat: no-repeat;
+  }
+  input[type=date] { text-align: left; }
+  input[type=date]::-webkit-date-and-time-value { text-align: left; min-height: 1.5em; }
+  input[type=date]::-webkit-calendar-picker-indicator { margin: 0; }
   textarea { min-height: 96px; resize: vertical; }
   ::placeholder { color: var(--muted); opacity: 1; }
   input:disabled, select:disabled, textarea:disabled { opacity: .5; cursor: not-allowed; }
@@ -74,8 +100,9 @@
     outline: 2px solid var(--ink); outline-offset: 2px;
   }
   input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="true"] { border-color: var(--danger); border-width: 2px; }
-  .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
-  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+  .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4); }
+  .row > .field { min-width: 0; }
+  @media (max-width: 560px) { .row { grid-template-columns: minmax(0, 1fr); } }
 
   /* pills (checkbox): apagado = contorno, activo = relleno, como los interruptores */
   .pills { display: flex; flex-wrap: wrap; gap: var(--s2); }
@@ -108,6 +135,7 @@
   .swatches { display: flex; flex-wrap: wrap; gap: var(--s3); align-items: center; }
   .swatch { position: relative; }
   .swatch input[type=color] { width: 56px; height: 56px; border: var(--border); border-radius: var(--r-sm); padding: 3px; background: transparent; cursor: pointer; }
+  .swatch input[type=color] { background: var(--bg); }
   .swatch button.rm {
     position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; border-radius: 50%;
     border: var(--border); background: var(--bg); color: var(--ink); cursor: pointer; font-size: var(--t-sm); line-height: 1; padding: 0;
