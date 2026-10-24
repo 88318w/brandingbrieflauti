@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brief de Branding</title>
+<meta name="description" content="Contame sobre tu marca: este brief me ayuda a diseñar una identidad a tu medida.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f2ea;
+    --card: #fffdf8;
+    --ink: #1c1b19;
+    --muted: #6b675f;
+    --line: #ddd6c8;
+    --accent: #e4572e;
+    --accent-ink: #fff;
+    --ok: #2f7d4f;
+    --radius: 14px;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141311; --card: #1d1c19; --ink: #f2eee5; --muted: #a29d91; --line: #35332e;
+      --accent: #ff7a55; --accent-ink: #1c1b19; --ok: #5ec08a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.55 var(--sans); -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px 120px; }
+
+  header.hero { padding: 56px 0 28px; }
+  .eyebrow { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  h1 { font: 700 clamp(34px, 7vw, 54px)/1.05 var(--serif); margin: 10px 0 14px; letter-spacing: -.02em; }
+  .lead { color: var(--muted); font-size: 18px; max-width: 56ch; margin: 0; }
+
+  .progress { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 10px 0; }
+  .progress-bar { height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; }
+  .progress-bar > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+  .progress small { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; }
+
+  fieldset.section {
+    border: 1px solid var(--line); background: var(--card); border-radius: var(--radius);
+    padding: 26px 22px 8px; margin: 18px 0; min-width: 0;
+  }
+  fieldset.section > legend { padding: 0; float: left; width: 100%; margin-bottom: 18px; }
+  fieldset.section > legend + * { clear: both; }
+  .sec-num { font: 600 13px var(--sans); color: var(--accent); letter-spacing: .1em; }
+  .sec-title { font: 700 26px/1.15 var(--serif); margin: 2px 0 4px; display: block; }
+  .sec-hint { color: var(--muted); font-size: 14.5px; font-weight: 400; display: block; }
+
+  .field { margin: 0 0 22px; }
+  .q { display: block; font-weight: 600; margin-bottom: 6px; }
+  .q .req { color: var(--accent); }
+  .help { display: block; color: var(--muted); font-size: 13.5px; font-weight: 400; margin-top: 1px; }
+
+  input[type=text], input[type=email], input[type=tel], input[type=url], input[type=date], select, textarea {
+    width: 100%; font: inherit; color: var(--ink); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 10px; padding: 11px 13px;
+  }
+  textarea { min-height: 96px; resize: vertical; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible, .pill input:focus-visible + span {
+    outline: 3px solid color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: 1px; border-color: var(--accent);
+  }
+  input.invalid { border-color: #d33; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+
+  /* pills (checkbox / radio) */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { position: relative; }
+  .pill input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+  .pill span {
+    display: inline-block; padding: 8px 14px; border: 1px solid var(--line); border-radius: 99px;
+    background: var(--bg); font-size: 14.5px; transition: .15s; user-select: none;
+  }
+  .pill input:checked + span { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .pill:hover span { border-color: var(--ink); }
+
+  /* sliders */
+  .slider { margin: 0 0 18px; }
+  .slider .poles { display: flex; justify-content: space-between; font-size: 14px; font-weight: 500; }
+  .slider .poles span:last-child { text-align: right; }
+  input[type=range] { width: 100%; accent-color: var(--accent); margin: 6px 0 0; }
+  .ticks { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; padding: 0 6px; }
+
+  /* colors */
+  .swatches { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .swatch { position: relative; }
+  .swatch input[type=color] { width: 52px; height: 52px; border: 1px solid var(--line); border-radius: 12px; padding: 3px; background: var(--bg); cursor: pointer; }
+  .swatch button.rm {
+    position: absolute; top: -7px; right: -7px; width: 22px; height: 22px; border-radius: 50%;
+    border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; font-size: 13px; line-height: 1; padding: 0;
+  }
+  .btn-ghost {
+    font: inherit; font-weight: 500; background: transparent; color: var(--ink);
+    border: 1px dashed var(--muted); border-radius: 12px; padding: 12px 16px; cursor: pointer;
+  }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  /* actions */
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 8px; }
+  .btn {
+    font: inherit; font-weight: 600; border-radius: 12px; padding: 14px 22px; cursor: pointer;
+    border: 1px solid var(--ink); background: transparent; color: var(--ink);
+  }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn.primary:hover { filter: brightness(1.06); }
+  .btn:disabled { opacity: .6; cursor: wait; }
+  .note { color: var(--muted); font-size: 13.5px; }
+  .toast { color: var(--ok); font-weight: 600; min-height: 1.5em; margin: 6px 0 0; }
+  .err { color: #d33; font-weight: 600; margin: 8px 0 0; }
+  .thanks { display: none; text-align: center; padding: 40px 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); margin: 18px 0; }
+  .thanks h2 { font: 700 30px var(--serif); margin: 0 0 8px; }
+  .thanks.show { display: block; }
+  .link { background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
+  .hp { position: absolute; left: -9999px; }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    .progress, .actions, .note, .toast, .err, .btn-ghost, .swatch .rm, .thanks { display: none !important; }
+    fieldset.section { break-inside: avoid; border-color: #bbb; background: #fff; }
+    .wrap { max-width: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow" id="designerLine">Brief de branding</div>
+    <h1>Contame sobre tu marca</h1>
+    <p class="lead">Este cuestionario me ayuda a entender tu negocio, tu público y tu estilo antes de abrir el programa de diseño. Tarda unos 15 minutos. No hay respuestas incorrectas: si no sabés algo, dejalo vacío o escribí “no sé”.</p>
+  </header>
+
+  <div class="progress" aria-live="polite">
+    <div class="progress-bar"><i id="bar"></i></div>
+    <small id="progressText">0% completado · se guarda solo en este navegador</small>
+  </div>
+
+  <form id="brief" novalidate autocomplete="on">
+    <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <!-- 1 -->
+    <fieldset class="section" data-title="Sobre vos y tu negocio">
+      <legend><span class="sec-num">01</span><span class="sec-title">Sobre vos y tu negocio</span><span class="sec-hint">Para saber con quién hablo y a qué se dedica la marca.</span></legend>
+      <div class="row">
+        <div class="field"><label class="q" for="nombre">Tu nombre <span class="req">*</span></label><input type="text" id="nombre" name="nombre" required autocomplete="name"></div>
+        <div class="field"><label class="q" for="email">Email <span class="req">*</span></label><input type="email" id="email" name="email" required autocomplete="email"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label class="q" for="tel">WhatsApp / teléfono</label><input type="tel" id="tel" name="tel" autocomplete="tel"></div>
+        <div class="field"><label class="q" for="marca">Nombre de la marca o negocio <span class="req">*</span></label><input type="text" id="marca" name="marca" required></div>
+      </div>
+      <div class="field"><label class="q" for="slogan">¿Tiene eslogan o bajada?<span class="help">Si ya existe uno, o si querés que lo pensemos juntos.</span></label><input type="text" id="slogan" name="slogan"></div>
+      <div class="field"><label class="q" for="rubro">¿A qué se dedica? <span class="req">*</span><span class="help">Rubro, productos o servicios principales.</span></label><textarea id="rubro" name="rubro" required></textarea></div>
+      <div class="row">
+        <div class="field"><label class="q" for="etapa">¿En qué etapa está?</label>
+          <select id="etapa" name="etapa"><option value="">Elegí una…</option><option>Es una idea / todavía no arrancó</option><option>Recién empieza (menos de 1 año)</option><option>En crecimiento (1 a 5 años)</option><option>Consolidada (más de 5 años)</option></select></div>
+        <div class="field"><label class="q" for="ubicacion">Ciudad / país donde opera</label><input type="text" id="ubicacion" name="ubicacion"></div>
+      </div>
+      <div class="field"><label class="q" for="links">Web y redes actuales<span class="help">Pegá los links que tengas.</span></label><textarea id="links" name="links" style="min-height:72px"></textarea></div>
+    </fieldset>
+
+    <!-- 2 -->
+    <fieldset class="section" data-title="El proyecto">
+      <legend><span class="sec-num">02</span><span class="sec-title">El proyecto</span><span class="sec-hint">Qué necesitás y por qué ahora.</span></legend>
+      <div class="field"><span class="q">¿Qué necesitás?<span class="help">Podés marcar varias.</span></span>
+        <div class="pills" data-group="necesidades">
+          <label class="pill"><input type="checkbox" name="necesidades" value="Logo"><span>Logo</span></label>
+          <label class="pill"><input type="checkbox" name="necesidades" value="Identidad visual completa"><span>Identidad visual completa</span></label>
+          <label class="pill"><input type="checkbox" name="necesidades" value="Rediseño / actualización"><span>Rediseño / actualización</span></label>
+          <label class="pill"><input type="checkbox" name="necesidades" value="Manual de marca"><span>Manual de marca</span></label>
+          <label class="pill"><input type="checkbox" name="necesidades" value="Papelería (tarjetas, hojas, sobres)"><span>Papelería</span></label>
+          <label class="pill"><input type="checkbox" name="necesidades" value="Packaging / etiquetas"><span>Packaging / etiquetas</span></label>
+          <label class="pill"><input type="checkbox" name="necesidades" value="Redes sociales (plantillas, avatar, portadas)"><span>Redes sociales</span></label>
+          <label class="pill"><input type="checkbox" name="necesidades" value="Sitio web"><span>Sitio web</span></label>
+          <label class="pill"><input type="checkbox" name="necesidades" value="Señalética / cartelería"><span>Señalética</span></label>
+          <label class="pill"><input type="checkbox" name="necesidades" value="Naming"><span>Naming (el nombre)</span></label>
+        </div></div>
+      <div class="field"><label class="q" for="motivo">¿Por qué querés hacerlo ahora?<span class="help">Lanzamiento, cambio de rumbo, la marca actual no te representa, etc.</span></label><textarea id="motivo" name="motivo"></textarea></div>
+      <div class="field"><label class="q" for="actual">Si ya tenés logo o identidad, ¿qué conservarías y qué cambiarías?</label><textarea id="actual" name="actual"></textarea></div>
+      <div class="field"><label class="q" for="exito">¿Cómo sabrías que el proyecto salió bien?</label><textarea id="exito" name="exito" style="min-height:72px"></textarea></div>
+    </fieldset>
+
+    <!-- 3 -->
+    <fieldset class="section" data-title="Público objetivo">
+      <legend><span class="sec-num">03</span><span class="sec-title">Tu público</span><span class="sec-hint">A quién le habla la marca.</span></legend>
+      <div class="field"><label class="q" for="publico">¿Quién es tu cliente ideal?<span class="help">Edad, estilo de vida, intereses, nivel de ingresos…</span></label><textarea id="publico" name="publico"></textarea></div>
+      <div class="field"><label class="q" for="problema">¿Qué problema le resolvés o qué le hacés sentir?</label><textarea id="problema" name="problema"></textarea></div>
+      <div class="field"><label class="q" for="diferencial">¿Qué te diferencia de la competencia?</label><textarea id="diferencial" name="diferencial"></textarea></div>
+    </fieldset>
+
+    <!-- 4 -->
+    <fieldset class="section" data-title="Competencia y referencias">
+      <legend><span class="sec-num">04</span><span class="sec-title">Competencia y referencias</span><span class="sec-hint">Lo que ya existe y lo que te inspira.</span></legend>
+      <div class="field"><label class="q" for="competencia">Competidores directos<span class="help">Nombres o links.</span></label><textarea id="competencia" name="competencia" style="min-height:72px"></textarea></div>
+      <div class="field"><label class="q" for="gustan">Marcas que te gustan (de tu rubro o no) y por qué</label><textarea id="gustan" name="gustan"></textarea></div>
+      <div class="field"><label class="q" for="nogustan">Cosas que NO querés<span class="help">Estilos, clichés, marcas que no te representan.</span></label><textarea id="nogustan" name="nogustan" style="min-height:72px"></textarea></div>
+      <div class="field"><label class="q" for="moodboard">Link a moodboard o carpeta de referencias<span class="help">Pinterest, Drive, Behance, Dropbox…</span></label><input type="url" id="moodboard" name="moodboard" placeholder="https://"></div>
+    </fieldset>
+
+    <!-- 5 -->
+    <fieldset class="section" data-title="Personalidad de marca">
+      <legend><span class="sec-num">05</span><span class="sec-title">Personalidad de marca</span><span class="sec-hint">Si tu marca fuera una persona, ¿cómo sería?</span></legend>
+      <div id="sliders"></div>
+      <div class="field"><span class="q">Elegí hasta 5 palabras que describan tu marca</span>
+        <div class="pills" id="palabras" data-max="5"></div>
+        <span class="help" id="palabrasHelp"></span></div>
+      <div class="field"><label class="q" for="valores">Valores o mensaje que tiene que transmitir</label><textarea id="valores" name="valores" style="min-height:72px"></textarea></div>
+    </fieldset>
+
+    <!-- 6 -->
+    <fieldset class="section" data-title="Estilo visual">
+      <legend><span class="sec-num">06</span><span class="sec-title">Estilo visual</span><span class="sec-hint">Colores, tipografías y tipo de logo.</span></legend>
+      <div class="field"><span class="q">Tipo de logo que imaginás</span>
+        <div class="pills">
+          <label class="pill"><input type="checkbox" name="tipoLogo" value="Solo texto (logotipo)"><span>Solo texto</span></label>
+          <label class="pill"><input type="checkbox" name="tipoLogo" value="Símbolo + texto"><span>Símbolo + texto</span></label>
+          <label class="pill"><input type="checkbox" name="tipoLogo" value="Solo símbolo / ícono"><span>Solo símbolo</span></label>
+          <label class="pill"><input type="checkbox" name="tipoLogo" value="Monograma / iniciales"><span>Monograma</span></label>
+          <label class="pill"><input type="checkbox" name="tipoLogo" value="Emblema / sello"><span>Emblema / sello</span></label>
+          <label class="pill"><input type="checkbox" name="tipoLogo" value="Mascota / personaje"><span>Mascota</span></label>
+          <label class="pill"><input type="checkbox" name="tipoLogo" value="No sé, que me recomiende"><span>No sé, recomendame</span></label>
+        </div></div>
+      <div class="field"><span class="q">Estilos que te atraen</span>
+        <div class="pills">
+          <label class="pill"><input type="checkbox" name="estilos" value="Minimalista"><span>Minimalista</span></label>
+          <label class="pill"><input type="checkbox" name="estilos" value="Geométrico"><span>Geométrico</span></label>
+          <label class="pill"><input type="checkbox" name="estilos" value="Orgánico / hecho a mano"><span>Orgánico / a mano</span></label>
+          <label class="pill"><input type="checkbox" name="estilos" value="Vintage / retro"><span>Vintage / retro</span></label>
+          <label class="pill"><input type="checkbox" name="estilos" value="Tipográfico"><span>Tipográfico</span></label>
+          <label class="pill"><input type="checkbox" name="estilos" value="Ilustrado"><span>Ilustrado</span></label>
+          <label class="pill"><input type="checkbox" name="estilos" value="Audaz / llamativo"><span>Audaz / llamativo</span></label>
+          <label class="pill"><input type="checkbox" name="estilos" value="Elegante / sofisticado"><span>Elegante</span></label>
+          <label class="pill"><input type="checkbox" name="estilos" value="Tecnológico"><span>Tecnológico</span></label>
+          <label class="pill"><input type="checkbox" name="estilos" value="Artesanal"><span>Artesanal</span></label>
+        </div></div>
+      <div class="field"><span class="q">Colores que te gustan o que ya usás<span class="help">Tocá un cuadro para elegir el color. Podés agregar hasta 6.</span></span>
+        <div class="swatches" id="swatches"></div></div>
+      <div class="field"><label class="q" for="evitarColores">Colores que querés evitar</label><input type="text" id="evitarColores" name="evitarColores"></div>
+      <div class="field"><span class="q">Tipografías</span>
+        <div class="pills">
+          <label class="pill"><input type="checkbox" name="tipografias" value="Serif (con remates)"><span>Serif (con remates)</span></label>
+          <label class="pill"><input type="checkbox" name="tipografias" value="Sans serif (palo seco)"><span>Sans serif</span></label>
+          <label class="pill"><input type="checkbox" name="tipografias" value="Script / caligráfica"><span>Script / caligráfica</span></label>
+          <label class="pill"><input type="checkbox" name="tipografias" value="Display / decorativa"><span>Display / decorativa</span></label>
+          <label class="pill"><input type="checkbox" name="tipografias" value="Mono / técnica"><span>Mono / técnica</span></label>
+          <label class="pill"><input type="checkbox" name="tipografias" value="Sin preferencia"><span>Sin preferencia</span></label>
+        </div></div>
+    </fieldset>
+
+    <!-- 7 -->
+    <fieldset class="section" data-title="Aplicaciones">
+      <legend><span class="sec-num">07</span><span class="sec-title">¿Dónde va a vivir la marca?</span><span class="sec-hint">Para diseñar pensando en el uso real.</span></legend>
+      <div class="field"><div class="pills">
+        <label class="pill"><input type="checkbox" name="aplicaciones" value="Instagram / redes"><span>Instagram / redes</span></label>
+        <label class="pill"><input type="checkbox" name="aplicaciones" value="Sitio web / e-commerce"><span>Web / e-commerce</span></label>
+        <label class="pill"><input type="checkbox" name="aplicaciones" value="Packaging"><span>Packaging</span></label>
+        <label class="pill"><input type="checkbox" name="aplicaciones" value="Local físico / fachada"><span>Local / fachada</span></label>
+        <label class="pill"><input type="checkbox" name="aplicaciones" value="Indumentaria / uniformes"><span>Indumentaria</span></label>
+        <label class="pill"><input type="checkbox" name="aplicaciones" value="Vehículos"><span>Vehículos</span></label>
+        <label class="pill"><input type="checkbox" name="aplicaciones" value="Impresos (folletos, flyers)"><span>Impresos</span></label>
+        <label class="pill"><input type="checkbox" name="aplicaciones" value="Merchandising"><span>Merchandising</span></label>
+        <label class="pill"><input type="checkbox" name="aplicaciones" value="App / producto digital"><span>App / producto digital</span></label>
+      </div></div>
+      <div class="field"><label class="q" for="otrasApps">Otros usos o comentarios</label><input type="text" id="otrasApps" name="otrasApps"></div>
+    </fieldset>
+
+    <!-- 8 -->
+    <fieldset class="section" data-title="Tiempos y presupuesto">
+      <legend><span class="sec-num">08</span><span class="sec-title">Tiempos y presupuesto</span><span class="sec-hint">Para armar una propuesta realista.</span></legend>
+      <div class="row">
+        <div class="field"><label class="q" for="fecha">¿Para cuándo lo necesitás?</label><input type="date" id="fecha" name="fecha"></div>
+        <div class="field"><label class="q" for="presupuesto">Presupuesto estimado</label>
+          <select id="presupuesto" name="presupuesto"><option value="">Elegí una…</option><option>Todavía no lo definí</option><option>Hasta USD 300</option><option>USD 300 – 700</option><option>USD 700 – 1.500</option><option>Más de USD 1.500</option></select></div>
+      </div>
+      <div class="field"><label class="q" for="decide">¿Quién decide y aprueba el diseño?</label><input type="text" id="decide" name="decide" placeholder="Solo yo / socios / equipo…"></div>
+      <div class="field"><label class="q" for="extra">¿Algo más que quieras contarme?</label><textarea id="extra" name="extra"></textarea></div>
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit" class="btn primary" id="sendBtn">Enviar brief</button>
+      <button type="button" class="btn" id="copyBtn">Copiar respuestas</button>
+      <button type="button" class="btn" id="pdfBtn">Guardar como PDF</button>
+    </div>
+    <p class="note" id="sendNote"></p>
+    <p class="toast" id="toast" role="status"></p>
+    <p class="err" id="err" role="alert"></p>
+    <p class="note"><button type="button" class="link" id="resetBtn">Borrar todo y empezar de nuevo</button></p>
+  </form>
+
+  <section class="thanks" id="thanks" tabindex="-1">
+    <h2>¡Gracias! 🎉</h2>
+    <p>Recibí tu brief. Lo reviso y te escribo pronto con los próximos pasos.</p>
+    <p><button type="button" class="btn" id="backBtn">Volver al formulario</button></p>
+  </section>
+</div>
+
+<script>
+/* ============ CONFIGURACIÓN (editá estas líneas) ============ */
+const CONFIG = {
+  designerName: "Lautaro",                    // tu nombre o estudio
+  designerEmail: "lautarosaez67@gmail.com",   // a dónde llegan los briefs
+  // Opcional: endpoint de Formspree / Getform / Basin, etc. (ej: "https://formspree.io/f/xxxxxxx").
+  // Si lo dejás vacío, el botón "Enviar brief" abre el correo del cliente con las respuestas.
+  formEndpoint: ""
+};
+
+const SLIDERS = [
+  ["Formal", "Informal"],
+  ["Clásico", "Moderno"],
+  ["Serio", "Divertido"],
+  ["Accesible", "Exclusivo / premium"],
+  ["Minimalista", "Expresivo"],
+  ["Tradicional", "Innovador"],
+  ["Masculino", "Femenino"]
+];
+const PALABRAS = ["Confiable","Cercana","Profesional","Creativa","Natural","Elegante","Audaz","Divertida","Honesta","Innovadora","Artesanal","Premium","Joven","Cálida","Energética","Tranquila","Sofisticada","Auténtica","Solidaria","Rebelde"];
+const MAX_COLORS = 6;
+const KEY = "brandingBrief.v1";
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const form = $("#brief");
+
+/* ---------- construir sliders y palabras ---------- */
+SLIDERS.forEach(([a, b], i) => {
+  const d = document.createElement("div");
+  d.className = "field slider";
+  d.innerHTML = `<div class="poles"><span>${a}</span><span>${b}</span></div>
+    <input type="range" min="1" max="5" step="1" value="3" name="slider${i}" data-a="${a}" data-b="${b}" data-touched="0" aria-label="${a} a ${b}">
+    <div class="ticks" aria-hidden="true"><span>●</span><span>●</span><span>●</span><span>●</span><span>●</span></div>`;
+  $("#sliders").appendChild(d);
+});
+$$("#sliders input").forEach(r => r.addEventListener("input", () => { r.dataset.touched = "1"; }));
+
+PALABRAS.forEach(w => {
+  const l = document.createElement("label");
+  l.className = "pill";
+  l.innerHTML = `<input type="checkbox" name="palabras" value="${w}"><span>${w}</span>`;
+  $("#palabras").appendChild(l);
+});
+function updateWords(e) {
+  const max = +$("#palabras").dataset.max;
+  const checked = $$("#palabras input:checked");
+  if (e && e.target.checked && checked.length > max) e.target.checked = false;
+  $("#palabrasHelp").textContent = `${$$("#palabras input:checked").length} de ${max} elegidas`;
+}
+$("#palabras").addEventListener("change", updateWords);
+
+/* ---------- colores ---------- */
+function addColor(value = "#e4572e") {
+  if ($$("#swatches .swatch").length >= MAX_COLORS) return;
+  const s = document.createElement("div");
+  s.className = "swatch";
+  s.innerHTML = `<input type="color" value="${value}" aria-label="Color"><button type="button" class="rm" aria-label="Quitar color">×</button>`;
+  s.querySelector(".rm").addEventListener("click", () => { s.remove(); refreshAdd(); onChange(); });
+  $("#swatches").insertBefore(s, $("#addColor"));
+  refreshAdd();
+}
+function refreshAdd() { $("#addColor").hidden = $$("#swatches .swatch").length >= MAX_COLORS; }
+const addBtn = document.createElement("button");
+addBtn.type = "button"; addBtn.id = "addColor"; addBtn.className = "btn-ghost"; addBtn.textContent = "+ Agregar color";
+addBtn.addEventListener("click", () => { addColor(); onChange(); });
+$("#swatches").appendChild(addBtn);
+const colors = () => $$("#swatches input[type=color]").map(i => i.value.toUpperCase());
+
+/* ---------- recolectar respuestas ---------- */
+const clean = t => t.replace(/\s*\*\s*$/, "").replace(/\s+/g, " ").trim();
+function qText(field) {
+  const q = $(".q", field); if (!q) return "";
+  const c = q.cloneNode(true);
+  $$(".help, .req", c).forEach(n => n.remove());
+  return clean(c.textContent);
+}
+function collect() {
+  return $$("fieldset.section", form).map(sec => {
+    const items = [];
+    $$(".field", sec).forEach(f => {
+      let a = "";
+      if (f.classList.contains("slider")) {
+        const r = $("input", f);
+        if (r.dataset.touched === "1") {
+          const v = +r.value;
+          a = v === 3 ? `Equilibrado entre ${r.dataset.a} y ${r.dataset.b}` :
+              v < 3 ? `${v === 1 ? "Muy " : "Más bien "}${r.dataset.a.toLowerCase()}` :
+                      `${v === 5 ? "Muy " : "Más bien "}${r.dataset.b.toLowerCase()}`;
+          items.push({ q: `${r.dataset.a} ↔ ${r.dataset.b}`, a });
+        }
+        return;
+      }
+      if ($("#swatches", f)) { const c = colors(); a = c.join(", "); items.push({ q: "Colores que te gustan o que ya usás", a }); return; }
+      const checks = $$("input[type=checkbox]:checked", f);
+      if ($$("input[type=checkbox]", f).length) a = checks.map(c => c.value).join(", ");
+      else { const i = $("input, select, textarea", f); a = i ? i.value.trim() : ""; }
+      const q = qText(f) || (sec.dataset.title);
+      items.push({ q, a });
+    });
+    return { title: sec.dataset.title, items };
+  });
+}
+function summaryText() {
+  const lines = [`BRIEF DE BRANDING — ${($("#marca").value || "Sin nombre").trim()}`, ""];
+  collect().forEach(s => {
+    const filled = s.items.filter(i => i.a);
+    if (!filled.length) return;
+    lines.push(`## ${s.title.toUpperCase()}`);
+    filled.forEach(i => lines.push(`${i.q}: ${i.a}`));
+    lines.push("");
+  });
+  return lines.join("\n").trim();
+}
+
+/* ---------- guardado local y progreso ---------- */
+function snapshot() {
+  const st = { fields: {}, sliders: {}, colors: colors() };
+  $$("[name]", form).forEach(el => {
+    if (el.name === "_gotcha") return;
+    if (el.type === "checkbox") { (st.fields[el.name] ||= []); if (el.checked) st.fields[el.name].push(el.value); }
+    else if (el.type === "range") st.sliders[el.name] = { v: el.value, t: el.dataset.touched };
+    else st.fields[el.name] = el.value;
+  });
+  return st;
+}
+function restore(st) {
+  $$("[name]", form).forEach(el => {
+    if (el.name === "_gotcha") return;
+    if (el.type === "checkbox") el.checked = (st.fields[el.name] || []).includes(el.value);
+    else if (el.type === "range") { const s = st.sliders[el.name]; if (s) { el.value = s.v; el.dataset.touched = s.t; } }
+    else if (el.name in st.fields) el.value = st.fields[el.name];
+  });
+  $$("#swatches .swatch").forEach(n => n.remove());
+  (st.colors || []).forEach(c => addColor(c));
+  updateWords();
+}
+function updateProgress() {
+  const fields = $$(".field", form);
+  let done = 0;
+  fields.forEach(f => {
+    if (f.classList.contains("slider")) { if ($("input", f).dataset.touched === "1") done++; return; }
+    if ($("#swatches", f)) { if ($$(".swatch", f).length) done++; return; }
+    if ($$("input[type=checkbox]:checked", f).length) { done++; return; }
+    const i = $("input:not([type=checkbox]), select, textarea", f);
+    if (i && i.value.trim()) done++;
+  });
+  // los 7 sliders cuentan como un solo bloque para no inflar el total
+  const sliderN = $$(".slider", form).length;
+  const total = fields.length - sliderN + 1;
+  const sliderDone = $$(".slider input", form).filter(r => r.dataset.touched === "1").length;
+  const doneAdj = done - sliderDone + (sliderDone >= Math.ceil(sliderN / 2) ? 1 : 0);
+  const pct = Math.min(100, Math.round(doneAdj / total * 100));
+  $("#bar").style.width = pct + "%";
+  $("#progressText").textContent = `${pct}% completado · se guarda solo en este navegador`;
+}
+let saveT;
+function onChange() {
+  updateProgress();
+  clearTimeout(saveT);
+  saveT = setTimeout(() => { try { localStorage.setItem(KEY, JSON.stringify(snapshot())); } catch (e) {} }, 250);
+}
+form.addEventListener("input", onChange);
+form.addEventListener("change", onChange);
+
+/* ---------- acciones ---------- */
+function toast(msg) { $("#toast").textContent = msg; setTimeout(() => { if ($("#toast").textContent === msg) $("#toast").textContent = ""; }, 4000); }
+function validate() {
+  $("#err").textContent = "";
+  const missing = $$("[required]", form).filter(el => !el.value.trim() || (el.type === "email" && !el.checkValidity()));
+  $$("input.invalid, textarea.invalid", form).forEach(el => el.classList.remove("invalid"));
+  if (missing.length) {
+    missing.forEach(el => el.classList.add("invalid"));
+    missing[0].focus();
+    $("#err").textContent = "Faltan datos obligatorios (marcados con *) o hay un email inválido.";
+    return false;
+  }
+  return true;
+}
+async function copyText(t) {
+  try { await navigator.clipboard.writeText(t); return true; }
+  catch (e) {
+    const ta = document.createElement("textarea"); ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch (_) {}
+    ta.remove(); return ok;
+  }
+}
+$("#copyBtn").addEventListener("click", async () => {
+  toast(await copyText(summaryText()) ? "¡Respuestas copiadas!" : "No se pudo copiar. Probá con “Guardar como PDF”.");
+});
+$("#pdfBtn").addEventListener("click", () => window.print());
+$("#resetBtn").addEventListener("click", () => {
+  if (!confirm("¿Borrar todas las respuestas?")) return;
+  form.reset();
+  $$("#sliders input").forEach(r => { r.value = 3; r.dataset.touched = "0"; });
+  $$("#swatches .swatch").forEach(n => n.remove());
+  try { localStorage.removeItem(KEY); } catch (e) {}
+  updateWords(); updateProgress();
+});
+$("#backBtn").addEventListener("click", () => { $("#thanks").classList.remove("show"); form.hidden = false; window.scrollTo({ top: 0 }); });
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  if ($("[name=_gotcha]").value) return;       // anti-spam
+  if (!validate()) return;
+  const text = summaryText();
+  const subject = `Brief de branding — ${$("#marca").value.trim()}`;
+  if (CONFIG.formEndpoint) {
+    const btn = $("#sendBtn"); btn.disabled = true; btn.textContent = "Enviando…";
+    try {
+      const res = await fetch(CONFIG.formEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({ _subject: subject, email: $("#email").value.trim(), name: $("#nombre").value.trim(), message: text })
+      });
+      if (!res.ok) throw new Error(res.status);
+      form.hidden = true; $("#thanks").classList.add("show"); $("#thanks").focus(); window.scrollTo({ top: 0 });
+    } catch (err) {
+      $("#err").textContent = "No se pudo enviar. Probá de nuevo o usá “Copiar respuestas” y mandalo por mail.";
+    } finally { btn.disabled = false; btn.textContent = "Enviar brief"; }
+  } else {
+    await copyText(text);                      // por si el cliente de correo recorta el texto
+    location.href = `mailto:${CONFIG.designerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    toast("Se abrió tu correo con el brief. Si no se abrió, las respuestas quedaron copiadas: pegalas en un mail.");
+  }
+});
+
+/* ---------- init ---------- */
+$("#designerLine").textContent = `Brief de branding · ${CONFIG.designerName}`;
+$("#sendNote").textContent = CONFIG.formEndpoint ? "" : `Al enviar se abre tu correo con las respuestas listas para mandar a ${CONFIG.designerEmail}.`;
+try { const raw = localStorage.getItem(KEY); if (raw) restore(JSON.parse(raw)); } catch (e) {}
+if (!$$("#swatches .swatch").length) addColor("#e4572e");
+updateWords(); updateProgress();
+</script>
+</body>
+</html>
