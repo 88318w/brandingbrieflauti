@@ -525,6 +525,18 @@ form.addEventListener("input", e => {
 });
 form.addEventListener("change", onChange);
 
+/* ---------- envío estructurado: una columna por pregunta en el panel de Formspree ---------- */
+function payload(subject) {
+  const data = { _subject: subject, name: $("#nombre").value.trim(), email: $("#email").value.trim() };
+  const skip = ["Tu nombre", "Email"];                       // ya van como name y email
+  collect().forEach((s, i) => s.items.forEach(it => {
+    if (!it.a || skip.includes(it.q)) return;
+    const key = `${String(i + 1).padStart(2, "0")} · ${it.q}`; // el número mantiene el orden del formulario
+    data[key] = it.a;
+  }));
+  return data;
+}
+
 /* ---------- acciones ---------- */
 function toast(msg) { $("#toast").textContent = msg; setTimeout(() => { if ($("#toast").textContent === msg) $("#toast").textContent = ""; }, 4000); }
 function validate() {
@@ -570,7 +582,7 @@ form.addEventListener("submit", async e => {
       const res = await fetch(CONFIG.formEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({ _subject: subject, email: $("#email").value.trim(), name: $("#nombre").value.trim(), message: text })
+        body: JSON.stringify(payload(subject))
       });
       if (!res.ok) throw new Error(res.status);
       form.hidden = true; $("#thanks").classList.add("show"); $("#thanks").focus(); window.scrollTo({ top: 0 });
